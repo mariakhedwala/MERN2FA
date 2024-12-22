@@ -19,5 +19,18 @@ passport.use(
     ));
 
 passport.serializeUser((user, done) => {
-    done(null, user._id)
+    console.log("Inside deserialize user");
+    done(null, user._id);
+})
+
+
+passport.deserializeUser(async (_id, done) => {
+    try {
+        console.log("Inside deserialize user")
+        const user = await User.findById(_id);
+        done(null, user);
+    } catch (error) {
+        done(error);
+
+    }
 })

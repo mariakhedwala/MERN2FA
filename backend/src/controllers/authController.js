@@ -3,10 +3,10 @@ import User from "../models/user.js";
 
 export const register = async (req, res) => {
     try {
-        const { userName, password } = req.body;
+        const { username, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({
-            userName,
+            username,
             password: hashedPassword,
             isMfaActive: false,
         });
@@ -20,9 +20,9 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
     console.log("The authenticated user is ", req.user);
-    res.state(200).json({
+    res.status(200).json({
         message: "User logged in",
-        userName: req.user.username,
+        username: req.user.username,
         isMfaActive: req.user.isMfaActive
     });
 }
